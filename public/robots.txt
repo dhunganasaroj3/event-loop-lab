@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://dhunganasaroj3.github.io/event-loop-lab/sitemap.xml

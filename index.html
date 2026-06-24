@@ -3,11 +3,137 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Event Loop Lab — Understand the JS Event Loop</title>
-    <meta name="description" content="An animated, interactive deep-dive into the JavaScript event loop: call stack, Web APIs, macrotasks, microtasks, rendering, and the exact ordering rules — with a graded quiz." />
+
+    <!-- Primary SEO -->
+    <title>Event Loop Lab — Visualize & Master the JavaScript Event Loop</title>
+    <meta name="description" content="Learn the JavaScript event loop with an animated, interactive visualizer: call stack, Web APIs, macrotasks, the microtask queue, async/await, requestAnimationFrame and rendering. Paste your own code in the live playground and take a graded quiz. Free, no signup." />
+    <meta name="keywords" content="javascript event loop, event loop visualizer, microtask queue, macrotask, call stack, async await, promises, setTimeout, requestAnimationFrame, queueMicrotask, javascript concurrency, event loop animation, learn javascript, js interview" />
+    <meta name="author" content="dhunganasaroj3" />
+    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
+    <meta name="theme-color" content="#0b1020" />
+    <link rel="canonical" href="https://dhunganasaroj3.github.io/event-loop-lab/" />
+
+    <!-- Icons / PWA -->
+    <link rel="icon" href="./favicon.ico" sizes="any" />
+    <link rel="icon" type="image/svg+xml" href="./icon.svg" />
+    <link rel="apple-touch-icon" href="./apple-touch-icon.png" />
+    <link rel="manifest" href="./site.webmanifest" />
+
+    <!-- Open Graph (Facebook, LinkedIn, Slack, Discord…) -->
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Event Loop Lab" />
+    <meta property="og:title" content="Event Loop Lab — Visualize & Master the JavaScript Event Loop" />
+    <meta property="og:description" content="An animated, interactive deep-dive into the JavaScript event loop. Visualize the call stack, macrotasks and microtask queue, run your own code in a live playground, and test yourself with a graded quiz." />
+    <meta property="og:url" content="https://dhunganasaroj3.github.io/event-loop-lab/" />
+    <meta property="og:image" content="https://dhunganasaroj3.github.io/event-loop-lab/og-image.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Event Loop Lab — animated JavaScript event loop visualizer" />
+    <meta property="og:locale" content="en_US" />
+
+    <!-- Twitter / X card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Event Loop Lab — Visualize & Master the JavaScript Event Loop" />
+    <meta name="twitter:description" content="Animated, interactive JavaScript event loop: call stack, macrotasks, microtasks, async/await, rendering — plus a live code playground and a quiz." />
+    <meta name="twitter:image" content="https://dhunganasaroj3.github.io/event-loop-lab/og-image.png" />
+    <meta name="twitter:image:alt" content="Event Loop Lab — animated JavaScript event loop visualizer" />
+
+    <!-- Structured data: WebApplication + LearningResource -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": ["WebApplication", "LearningResource"],
+      "name": "Event Loop Lab",
+      "url": "https://dhunganasaroj3.github.io/event-loop-lab/",
+      "image": "https://dhunganasaroj3.github.io/event-loop-lab/og-image.png",
+      "description": "An animated, interactive deep-dive into the JavaScript event loop: call stack, Web APIs, macrotasks, the microtask queue, async/await, requestAnimationFrame and rendering, with a live code playground and a graded quiz.",
+      "applicationCategory": "EducationalApplication",
+      "operatingSystem": "Any (web browser)",
+      "browserRequirements": "Requires JavaScript. Modern browser.",
+      "inLanguage": "en",
+      "isAccessibleForFree": true,
+      "learningResourceType": ["interactive simulation", "tutorial", "quiz"],
+      "educationalLevel": "Beginner to Advanced",
+      "teaches": [
+        "JavaScript event loop",
+        "Call stack",
+        "Macrotask queue",
+        "Microtask queue",
+        "Promises and async/await",
+        "requestAnimationFrame and rendering"
+      ],
+      "keywords": "javascript event loop, microtask queue, macrotask, call stack, async await, promises, setTimeout, requestAnimationFrame",
+      "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+      "author": { "@type": "Person", "name": "dhunganasaroj3" }
+    }
+    </script>
+
+    <!-- Structured data: FAQ (eligible for rich results) -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "What is the JavaScript event loop?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "The event loop is the mechanism that lets single-threaded JavaScript handle asynchronous work. When the call stack is empty it runs one macrotask (such as a setTimeout callback), then drains the entire microtask queue (Promise callbacks, await continuations, queueMicrotask), optionally renders, and repeats."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What is the difference between a macrotask and a microtask?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Macrotasks come from setTimeout, setInterval, I/O and UI events; one runs per loop turn. Microtasks come from Promises, async/await and queueMicrotask; the entire microtask queue is drained after each macrotask and before the next one or any rendering. That is why a resolved Promise callback runs before a setTimeout(0) callback."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Why does setTimeout(fn, 0) not run immediately?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "The 0 is a minimum delay, not an exact one. The callback only runs after the current synchronous code finishes, the call stack is empty, all microtasks have drained, and earlier macrotasks ahead of it are done — and browsers also clamp nested timers."
+          }
+        }
+      ]
+    }
+    </script>
   </head>
   <body>
     <div id="root"></div>
+
+    <!-- Crawlable content for search engines & no-JS users.
+         Hidden from JS users once React mounts (it replaces #root, not this),
+         but present in the static HTML that crawlers read first. -->
+    <noscript>
+      <main style="max-width:760px;margin:40px auto;padding:0 20px;font-family:system-ui,sans-serif;line-height:1.6;color:#1a1a1a">
+        <h1>Event Loop Lab — Visualize and Master the JavaScript Event Loop</h1>
+        <p>Event Loop Lab is a free, animated, interactive tool for understanding how the JavaScript event loop works — from the call stack and Web APIs to the macrotask queue, the microtask queue, async/await, requestAnimationFrame and rendering.</p>
+        <p><strong>This app requires JavaScript.</strong> Please enable JavaScript to use the interactive visualizer, code playground and quiz.</p>
+        <h2>What you will learn</h2>
+        <ul>
+          <li>The call stack and why JavaScript runs one thing at a time</li>
+          <li>How Web APIs (setTimeout, fetch, events) run off the JS thread</li>
+          <li>The macrotask (task) queue and how the event loop dequeues it</li>
+          <li>The microtask queue and the "drain to empty" rule for Promises</li>
+          <li>How async/await desugars into microtasks</li>
+          <li>Where requestAnimationFrame and rendering fit in a loop turn</li>
+          <li>Microtask starvation, and Node.js process.nextTick ordering</li>
+        </ul>
+        <h2>Features</h2>
+        <ul>
+          <li><strong>Learn</strong> — 11 lessons, each with an animated demo</li>
+          <li><strong>Simulator</strong> — 10 preset programs animated step by step</li>
+          <li><strong>Playground</strong> — paste your own JavaScript and watch the event loop process it</li>
+          <li><strong>Quiz</strong> — 16 graded questions with explanations</li>
+        </ul>
+        <p>Key rule to remember: run a task, empty the microtask queue, maybe render, then repeat.</p>
+      </main>
+    </noscript>
+
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>
