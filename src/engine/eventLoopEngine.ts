@@ -109,7 +109,8 @@ export function apply(prev: EngineState, ins: Instruction): EngineState {
     case 'phase': {
       s.phase = ins.phase
       if (ins.phase === 'drain-microtasks') s.activeRegion = 'microtaskQueue'
-      else if (ins.phase === 'render' || ins.phase === 'pick-macrotask') s.activeRegion = 'taskQueue'
+      else if (ins.phase === 'render') s.activeRegion = 'rafQueue'
+      else if (ins.phase === 'pick-macrotask') s.activeRegion = 'taskQueue'
       break
     }
     case 'runMacrotask': {
