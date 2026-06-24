@@ -1,0 +1,58 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" fill="none">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1200" y2="630" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#0b1020"/>
+      <stop offset="1" stop-color="#121a31"/>
+    </linearGradient>
+    <linearGradient id="title" x1="80" y1="0" x2="900" y2="0" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#8ab0ff"/>
+      <stop offset="1" stop-color="#b79bff"/>
+    </linearGradient>
+    <radialGradient id="glow1" cx="0" cy="0" r="1" gradientTransform="translate(240 60) scale(560 320)" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#5b8cff" stop-opacity="0.28"/>
+      <stop offset="1" stop-color="#5b8cff" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="glow2" cx="0" cy="0" r="1" gradientTransform="translate(1120 120) scale(480 300)" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#8a6bff" stop-opacity="0.26"/>
+      <stop offset="1" stop-color="#8a6bff" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+
+  <rect width="1200" height="630" fill="url(#bg)"/>
+  <rect width="1200" height="630" fill="url(#glow1)"/>
+  <rect width="1200" height="630" fill="url(#glow2)"/>
+
+  <!-- title -->
+  <text x="80" y="180" font-family="system-ui, -apple-system, Segoe UI, Roboto, sans-serif" font-size="84" font-weight="800" fill="url(#title)" letter-spacing="-2">Event Loop Lab</text>
+  <text x="82" y="246" font-family="system-ui, -apple-system, Segoe UI, Roboto, sans-serif" font-size="34" font-weight="500" fill="#9aa7d0">Master the JavaScript event loop — visually.</text>
+
+  <!-- region chips row (mini visualizer) -->
+  <g font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="22" font-weight="700" fill="#0c0f1d">
+    <rect x="80"  y="320" width="210" height="56" rx="12" fill="#f0a13a"/>
+    <text x="100" y="356">Call Stack</text>
+    <rect x="310" y="320" width="200" height="56" rx="12" fill="#38c5a8"/>
+    <text x="330" y="356">Web APIs</text>
+    <rect x="530" y="320" width="240" height="56" rx="12" fill="#ff6b9d"/>
+    <text x="550" y="356">Macrotasks</text>
+    <rect x="790" y="320" width="240" height="56" rx="12" fill="#7c6bff"/>
+    <text x="810" y="356">Microtasks</text>
+  </g>
+
+  <!-- arrow / flow -->
+  <text x="80" y="446" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="26" fill="#b8c2e8">run a task → drain microtasks → maybe render → repeat</text>
+
+  <!-- feature pills -->
+  <g font-family="system-ui, sans-serif" font-size="24" font-weight="600">
+    <rect x="80"  y="500" width="200" height="56" rx="28" fill="#16203c" stroke="#2a3a66"/>
+    <text x="112" y="537" fill="#e7ecff">📖 Learn</text>
+    <rect x="296" y="500" width="220" height="56" rx="28" fill="#16203c" stroke="#2a3a66"/>
+    <text x="328" y="537" fill="#e7ecff">🧪 Simulator</text>
+    <rect x="532" y="500" width="236" height="56" rx="28" fill="#16203c" stroke="#2a3a66"/>
+    <text x="564" y="537" fill="#e7ecff">⌨️ Playground</text>
+    <rect x="784" y="500" width="170" height="56" rx="28" fill="#16203c" stroke="#2a3a66"/>
+    <text x="816" y="537" fill="#e7ecff">🧠 Quiz</text>
+  </g>
+
+  <!-- url -->
+  <text x="1120" y="600" text-anchor="end" font-family="ui-monospace, monospace" font-size="22" fill="#5b8cff">dhunganasaroj3.github.io/event-loop-lab</text>
+</svg>
